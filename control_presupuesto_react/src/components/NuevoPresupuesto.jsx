@@ -1,14 +1,14 @@
 import React from 'react'
 import { useState } from 'react'
 
-function NuevoPresupuesto({presupuesto,setPresupuesto,setValidoPresupuesto}) {
+function NuevoPresupuesto({presupuesto,setPresupuesto,setValidoPresupuesto,setClickPresupuesto}) {
 
     const [error,setError]=useState(false);
 
-    const handleSubmit=(e)=>{
+    const handleSubmit=(e,i)=>{
         e.preventDefault();
 
-        if (presupuesto<0){
+        if (presupuesto<=0){
             setError(true)
             setValidoPresupuesto(false)
         }else{
@@ -16,7 +16,6 @@ function NuevoPresupuesto({presupuesto,setPresupuesto,setValidoPresupuesto}) {
             setValidoPresupuesto(true)
         }
 
-        console.log( presupuesto);
     }
 
     return (
@@ -27,12 +26,15 @@ function NuevoPresupuesto({presupuesto,setPresupuesto,setValidoPresupuesto}) {
             >
             <div className=" w-full mb-5" >
             <label className='text-lg text-green-700 font-bold p-4 block' htmlFor="">Definir Presupuesto</label>
-            <input className='rounded-md w-full border-2 mt-2 p-2 hover:border-green-700' type="number"
+            <input className='rounded-md w-full border-2 mt-2 p-2 text-center hover:border-green-700' type="number"
             placeholder='ingresa el presupuesto'
             value={presupuesto}
-            onChange={(e)=> setPresupuesto(Number(e.target.value))}
+            onChange={(i)=> setPresupuesto(Number(i.target.value))}
+            
             />
-            <button className='mt-3 p-2 w-full text-slate-50 font-bold bg-green-800' type="submit">Añadir</button>
+            <input className='mt-3 p-2 w-full text-slate-50 font-bold bg-green-800' type="submit"
+            onClick={()=>setClickPresupuesto(true)}
+            />
             </div>
         </form>
             {error &&
